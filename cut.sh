@@ -2,6 +2,14 @@
 
 # this script finds silence in an mp3 file and cuts it into parts of ~30 minutes
 
+if [ $# -eq 0 ]
+then
+	echo "Error: No arguments supplied"
+	echo "Use example:"
+	echo $0 filename.mp3
+	exit
+fi
+
 echo "Extracting silence"
 ffmpeg -i $1 -af silencedetect=n=-50dB:d=3.0 -f null - 2> log.txt
 
