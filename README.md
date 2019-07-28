@@ -1,5 +1,12 @@
-# audio-cutter
+# Audio Cutter
 Set of scripts that allows to conert an audio file to a set of short .mp3 files
+This set of script can be used to cut long audio files such as audio books into short 
+mp3 files. It is very uefull for listening audio books in a car from a USB key
+Short audio parts allow fast an easy way to fast forward in the book.
+Cuts are mostly made at the moments of silence in the audio thus, 
+most of the time the script cuts in between chapters.
+
+Key words: cut audio book, cut long audio into short parts, convert audio books from audible
 
 # convert.sh
 Script that uses ffmpeg to convert a file to a .mp3 file
