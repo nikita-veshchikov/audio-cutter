@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# this script finds silence in an mp3 file and cuts it into parts of ~30 minutes
+
 echo "Extracting silence"
 ffmpeg -i $1 -af silencedetect=n=-50dB:d=3.0 -f null - 2> log.txt
 
@@ -9,8 +11,8 @@ echo "Choosing cuts"
 python3 extract_cuts.py silence.txt 1800
 
 echo "Cuting the mp3"
-mkdir $2
+mkdir $1_cuts
 
-ffmpeg -i $1 -f segment -segment_times `cat cuts.txt` -c copy $2/%03d_part.mp3
+ffmpeg -i $1 -f segment -segment_times `cat cuts.txt` -c copy $1_cuts/%03d_part.mp3
 
 rm {log,silence,cuts}.txt
