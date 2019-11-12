@@ -23,4 +23,4 @@ mkdir $1_cuts
 
 ffmpeg -i $1 -f segment -segment_times `cat cuts.txt` -c copy $1_cuts/%03d_part.mp3
 
-rm {log,silence,cuts}.txt
+#rm {log,silence,cuts}.txt
