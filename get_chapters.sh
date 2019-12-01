@@ -16,21 +16,20 @@ echo "Cuting the mp3"
 
 DIR=$(dirname $1)
 FILE=$(basename $1)
-# -i $DIR/cover.png
 
 cd $DIR
 mkdir ${FILE}_cuts
 
-ffmpeg -i $FILE -codec copy ${FILE}_tmp.mp3
+ffmpeg -i ${FILE} -codec copy ${FILE}_tmp.mp3
 ffmpeg -i $FILE 2>&1 | grep "Chapter" | tail -n+2 | awk ' NR>1 {printf ","}{printf "%.1f", $4}' 1> ${FILE}_tmp 
-ffmpeg -i $FILE_tmp.mp3 -f segment -segment_times `cat ${FILE}_tmp` -c copy ${FILE}_cuts/%03d_part.mp3 >/dev/null
+ffmpeg -i ${FILE}_tmp.mp3 -f segment -segment_times `cat ${FILE}_tmp` -c copy ${FILE}_cuts/%03d_part.mp3 >/dev/null
 
 echo "Adding meta data to the files"
 
 cd ${FILE}_cuts
 for f in `ls *.mp3`; do
 	echo "Adding metadata to $f"
-	eyeD3 --add-image "../cover.png:FRONT_COVER" --title="Chapter ${f%_part.*}" $f >/dev/null
+	eyeD3 --add-image "../cover.jpg:FRONT_COVER" --title="Chapter ${f%_part.*}" $f >/dev/null
 done;
 cd ..
 
